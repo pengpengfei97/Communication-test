@@ -13,7 +13,7 @@ QByteArray selectFile(Token t)  //根据令牌类型选择文件
     QByteArray path;
     switch(t.typeOfToken){
     case 'C':
-        path = "Camera-Timestamp.csv";
+        path = "Raw-Camera-Timestamp.csv";
         break;
     case 'G':
         path = "Canbus-Gear.csv";
@@ -25,7 +25,7 @@ QByteArray selectFile(Token t)  //根据令牌类型选择文件
         path = "Canbus-Steer.csv";
         break;
     case 'P':
-        path = "GPS.csv";
+        path = "Raw-GPS-withOffset.csv";
         break;
     case 'U':
         path = "LMU.csv";
@@ -74,7 +74,7 @@ bool DecodeToken_string(Token t,QByteArray &out)   //解密csv文件
     }
     file.close();
 
-    QByteArray path1 = "/home/pengpengfei/" + selectFile(t);
+    QByteArray path1 = "/home/wwh/catkin_ws/src/RT_OD_ros/test/" + selectFile(t);
     QFile file1(path1);
     file1.open(QFile::WriteOnly);
     QTextStream wr(&file1);//写入
@@ -302,4 +302,3 @@ client1.closeConnect();
 
     return a.exec();
 }
-
