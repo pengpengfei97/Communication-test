@@ -1,0 +1,77 @@
+1.文件说明
+
+local为车队接收指令的程序，remote为模拟的裁判方发送指令的程序。
+
+2.运行环境
+
+-Ubuntu 18.04.5 LTS
+-Qt Creator 4.5.2
+-Qt 5.9.5
+
+3.运行程序
+
+(1）将压缩包解压后得到local和remote两个文件夹，在linux系统下打开Qt Creator。
+(2) 点击左上方 文件 -> 打开文件或项目 ,在文件选择框中分别选择 local.pro 和 remote.pro 文件，打开local项目和remote项目
+(3) 在左边项目框中右键点击local运行程序，然后右键点击remote运行程序。应用程序输出框显示程序运行结果。
+
+4.文件结构及部分说明（local）
+
+
+local
+│
+├── Headers
+│   ├── tcpclient.h
+│   ├── tcpserver.h
+│   └── token.h
+└── Sources
+    ├── main.cpp
+    ├── tcpclient.cpp
+    └── tcpserver.cpp
+
+tcpclient.h 服务器端头文件，声明 TCPSever 类
+tcpserver.h 客户端头文件，声明 TCPClient 类
+token.h 令牌头文件， 声明 Token 类
+
+--------------------------------------------------------
+
+tcpserver.cpp 服务器端源文件，定义TCPClient类
+
+TCPServer类继承自QThread类，类对象声明后，对象调用start函数运行类中重写的run函数
+newConnect函数用于接收新的客户端请求并建立连接
+readMessage函数用于读取从客户端发送的数据
+readFixedData函数参数为引用类型，主要用于在主函数中向主函数的变量赋值
+isEmpty函数用于判断FixeddataVector是否为空
+
+------------------------------------------------------------
+
+tcpclient.cpp 客户端
+
+writeData函数用于向缓冲中写入数据发送至服务器
+
+-----------------------------------------------------------------
+
+main.cpp
+
+selectFile函数用于选择对应数据文件进行解密
+DecodeToken_string用于解密csv类型文件
+DecodeToken_byte用于解密lms和pcap文件 （文件解密还未测试）
+
+-----------------------------------------------------------------------
+
+main函数运行流程：
+
+创建TCPServer对象接收裁判方数据(端口号7001接收指令,7002接收令牌）
+                            ↓
+等待接收准备考试指令(server1)
+                            ↓
+创建TCPClient对象(client1 端口号7000)发送指令
+                            ↓
+等待开始测试指令(server1)
+                            ↓
+指令验证通过开始接收令牌(server2)
+                            ↓
+根据令牌数据对文件进行解密
+                            ↓
+作答，对答案进行编码并向裁判方发送(client2 端口号7003)
+                            ↓
+令牌接收完毕且后答案处理完毕发送答案传输完成指令
