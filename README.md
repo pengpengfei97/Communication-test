@@ -23,6 +23,6 @@
 ## 关于文件移动到测试区
 - 测试的时候可以在Qt Creator直接运行loacl和remote两个项目进行测试，也可以在ros中启动ros_qt qt_ros_node，然后在Qt Creator中运行remote项目进行测试，效果是一样的。由于remote只是模拟的裁判方程序，所以没有放进ros里
 - 运行前将Raw-Camera-Timestamp.csv文件和Raw-withOffset.csv文件放至/tmp路径下，以便进行读取文件内容并在在指定路径下生成新的文件。
-- 在remote项目中修改了发送的令牌内容。发送两个令牌，时间戳是随便写的，令牌的值设置的为0（由于现在的测试文件是未加密的，设置为0在解密的时候就不会影响文件内容），令牌的类型为C和P，分别对应Raw-Camera-Timestamp.csv文件和Raw-withOffset.csv文件。
+- 在remote项目中修改了发送的令牌内容。发送两个令牌，时间戳是随便写的，令牌的值设置的为0（由于现在的测试文件是未加密的，设置为0在解密的时候就不会影响文件内容），令牌的类型为C和P，分别对应Raw-Camera-Timestamp.csv文件和Raw-GPSwithOffset.csv文件。
 - 文件的转移在loacl的main.cpp文件的DecodeToken_string函数中进行，相关路径变量名分别设为path和path1
 - 运行效果是如果测试区没有这两个csv文件会生成两个csv文件，如果有的话会改写文件内容为/tmp路径下对应文件的内容
