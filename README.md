@@ -13,10 +13,10 @@
 2. 回到工作空间一级目录使用catkin_make指令编译工作空间
 3. 启动roscore,再输入 rosrun ros_qt qt_ros_node 即可执行文件
 #### 在ros中使用注意事项
-1. 使用的Qt5,确保电脑已安装Qt5,或者修改CMakeLists.txt文件里Qt库的配置为Qt4
+1. 编译使用的Qt5,确保电脑已安装Qt5,或者修改CMakeLists.txt文件里Qt库的配置为Qt4
 2. 若找不到 package ,可能是环境变量设置问题,在终端输入:
-`~$ echo "source /home/你的用户名/工作空间所在地址/devel/setup.bash" >> ~/.bashrc`  (如: `echo "source /home/pengpengfei/catkin_ws/devel/setup.bash" >> ~/.bashrc`) 
-`~$ source ~/.bashrc`
+~$ `echo "source /home/你的用户名/工作空间所在地址/devel/setup.bash" >> ~/.bashrc`  (如: `echo "source /home/pengpengfei/catkin_ws/devel/setup.bash" >> ~/.bashrc`) 
+~$ `source ~/.bashrc`
 然后再尝试能不能找到包
 3. 包和可执行文件为临时命名,后期可根据需求修改
 4. 程序中还未添加ros节点,根据需要添加节点传递数据
